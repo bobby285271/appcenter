@@ -292,6 +292,7 @@ public class AppCenter.MainWindow : Hdy.ApplicationWindow {
     }
 
     public override bool delete_event (Gdk.EventAny event) {
+#if PACKAGEKIT_BACKEND
         unowned AppCenterCore.PackageKitBackend client = AppCenterCore.PackageKitBackend.get_default ();
         if (client.working) {
             if (task_finished_connection != 0U) {
@@ -308,6 +309,7 @@ public class AppCenter.MainWindow : Hdy.ApplicationWindow {
             AppCenterCore.Client.get_default ().cancel_updates (false); //Timeouts keep running
             return true;
         }
+#endif
 
         return false;
     }
